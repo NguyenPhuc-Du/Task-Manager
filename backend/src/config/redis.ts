@@ -1,3 +1,12 @@
-﻿// TODO: implement
-export {}
+import { createClient } from 'redis';
 
+const redis = createClient({
+    url: process.env.REDIS_URL || 'redis://localhost:6379'
+});
+
+redis.on('error', (err) => console.error('Redis error:', err));
+redis.on('connect', () => console.log('Redis connected successfully'));
+
+redis.connect().catch(console.error);
+
+export default redis;
