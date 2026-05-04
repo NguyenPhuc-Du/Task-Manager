@@ -1,0 +1,17 @@
+name: Android CI
+
+on:
+  push:
+    paths:
+      - "android/**"
+  pull_request:
+    paths:
+      - "android/**"
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stub
+        run: echo "Add Gradle wrapper and ./gradlew assembleDebug"

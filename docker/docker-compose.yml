@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: aitm_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret123
+      POSTGRES_DB: aitaskmanager
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: aitm_redis
+    restart: unless-stopped
+    ports: 
+      - "6739:6739"
+    volumes:
+      - redisdata:/data
+  
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: aitm_backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://admin:secret123@postgres:5432/aitaskmanager
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your_jwt_secret_here
+      NODE_ENV: development
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../backend:/app
+      - /app/node_modules
+
+  ml-service:
+    build:
+      context: ../ml-service
+      dockerfile: ../docker/Dockerfile.ml
+    container_name: aitm_ml
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    container_name: aitm_nginx
+    ports:
+      - "80:80"
+    volumes: 
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend
+      - ml-service
+
+volumes:
+  pgdata:
+  redisdata:
