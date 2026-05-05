@@ -8,6 +8,10 @@ import authRoutes from './modules/auth/auth.routes';
 import taskRoutes from './modules/tasks/task.routes';
 import categoryRoutes from './modules/categories/category.routes';
 
+import { errorHandler } from './shared/middleware/error.middleware';
+import { apiRateLimit } from './shared/middleware/rateLimit.middleware';
+import { logger } from './shared/middleware/logger.middleware';
+
 // Initialize Prisma
 export const prisma = new PrismaClient();
 
@@ -16,10 +20,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors()); // Enable CORS for all routes (allow requests from any origin)
 app.use(helmet()); // Set security-related HTTP headers
-app.use(morgan('dev')); // Log HTTP requests to the console
+app.use(cors()); // Enable CORS for all routes (allow requests from any origin)
+app.use(logger); // Log HTTP requests to the console
 app.use(express.json()); // Parse JSON body
+app.use(apiRateLimit); // Apply rate limiting to all API routes
 
 // ─── Health check ─────────────────────────────────────
 app.get('/health', (req, res) => {
@@ -32,12 +37,7 @@ app.use('/tasks', taskRoutes);
 app.use('/categories', categoryRoutes);
 
 // Error handling 
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    error: err.message || 'Internal Server Error'
-  });
-});
+app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
