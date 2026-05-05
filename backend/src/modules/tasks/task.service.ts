@@ -1,4 +1,6 @@
-﻿import redis from '../../config/redis';
+import { io } from '../../app';
+import { emitToUser } from '../sync/sync.service';
+import redis from '../../config/redis';
 import * as taskRepo from './task.repository';
 
 const getCacheKey = (userId: string) => `tasks: ${userId}`;
@@ -32,6 +34,7 @@ export const updateTask = async (id: string, userId: string, data: any) => {
 
     const task = await taskRepo.update(id, userId, data);
     await redis.del(getCacheKey(userId));
+    emitToUser(io, userId, 'task:updated', task);
 
     return task;
 };
@@ -39,13 +42,15 @@ export const updateTask = async (id: string, userId: string, data: any) => {
 export const createTask = async (userId: string, data: any) => {
     const task = await taskRepo.create(userId, data);
     await redis.del(getCacheKey(userId));
+    emitToUser(io, userId, 'task:created', task);
 
     return task;
 };
 
 export const deleteTask = async (id: string, userId: string) => {
-    getTaskById(id, userId);
+    await getTaskById(id, userId);
 
     const task = await taskRepo.remove(id);
     await redis.del(getCacheKey(userId));
+    emitToUser(io, userId, 'task:deleted', { id });
 };

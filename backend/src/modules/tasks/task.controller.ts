@@ -1,11 +1,11 @@
-﻿import { Response, NextFunction} from 'express';
+import { Response, NextFunction} from 'express';
 import { AuthRequest } from '../auth/auth.middleware';
 import * as taskService from './task.service';
 import { createTaskSchema, updateTaskSchema, taskFilterSchema } from '../../shared/validators/task.validator';
 
 export const getTasks = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        const filters = taskFilterSchema.parse(req.body);
+        const filters = taskFilterSchema.parse(req.query);
         const tasks = await taskService.getTasks(req.userId!, filters);
         res.json(tasks);
     }
