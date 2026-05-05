@@ -6,9 +6,9 @@ services:
     container_name: aitm_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: secret123
-      POSTGRES_DB: aitaskmanager
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-aitaskmanager}
     ports:
       - "5432:5432"
     volumes:
@@ -32,9 +32,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgresql://admin:secret123@postgres:5432/aitaskmanager
+      DATABASE_URL: postgresql://${POSTGRES_USER:-admin}:${POSTGRES_PASSWORD:-change_me}@postgres:5432/${POSTGRES_DB:-aitaskmanager}
       REDIS_URL: redis://redis:6379
-      JWT_SECRET: your_jwt_secret_here
+      JWT_SECRET: ${JWT_SECRET:-change_me}
       NODE_ENV: development
     depends_on:
       - postgres
