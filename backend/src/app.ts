@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import { PrismaClient } from '@prisma/client';
 
 import authRoutes from './modules/auth/auth.routes';
@@ -13,11 +12,27 @@ import { errorHandler } from './shared/middleware/error.middleware';
 import { apiRateLimit } from './shared/middleware/rateLimit.middleware';
 import { logger } from './shared/middleware/logger.middleware';
 
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import { initGateway } from './modules/sync/sync.gateway';
+
 // Initialize Prisma
 export const prisma = new PrismaClient();
 
 // Initialize Express app
 const app = express();
+const httpServer = createServer(app);
+
+// Initialize Socket.IO server
+export const io = new Server(httpServer, {
+  cors: {
+    origin: '*', // Allow requests from any origin (for development)
+    methods: ['GET', 'POST']
+  }
+});
+
+initGateway(io);
+
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -41,7 +56,7 @@ app.use('/analytics', analyticsRoutes);
 app.use(errorHandler);
 
 // Start server
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`)
 });
 
