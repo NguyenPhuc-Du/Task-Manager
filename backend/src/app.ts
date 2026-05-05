@@ -7,6 +7,7 @@ import { PrismaClient } from '@prisma/client';
 import authRoutes from './modules/auth/auth.routes';
 import taskRoutes from './modules/tasks/task.routes';
 import categoryRoutes from './modules/categories/category.routes';
+import analyticsRoutes from './modules/analytics/analytics.routes';
 
 import { errorHandler } from './shared/middleware/error.middleware';
 import { apiRateLimit } from './shared/middleware/rateLimit.middleware';
@@ -35,7 +36,7 @@ app.get('/health', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/tasks', taskRoutes);
 app.use('/categories', categoryRoutes);
-
+app.use('/analytics', analyticsRoutes);
 // Error handling 
 app.use(errorHandler);
 

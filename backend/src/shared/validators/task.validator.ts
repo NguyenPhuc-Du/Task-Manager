@@ -8,7 +8,9 @@ export const createTaskSchema = z.object({
     categoryId: z.string().optional()
 });
 
-export const updateTaskSchema = createTaskSchema.partial();
+export const updateTaskSchema = createTaskSchema.partial().extend({
+  completed: z.boolean().optional()
+});
 
 export const taskFilterSchema = z.object({
     completed: z.enum(['true', 'false']).optional(),
