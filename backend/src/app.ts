@@ -6,6 +6,7 @@ import { PrismaClient } from '@prisma/client';
 
 import authRoutes from './modules/auth/auth.routes';
 import taskRoutes from './modules/tasks/task.routes';
+import categoryRoutes from './modules/categories/category.routes';
 
 // Initialize Prisma
 export const prisma = new PrismaClient();
@@ -28,6 +29,7 @@ app.get('/health', (req, res) => {
 // Routes
 app.use('/auth', authRoutes);
 app.use('/tasks', taskRoutes);
+app.use('/categories', categoryRoutes);
 
 // Error handling 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
