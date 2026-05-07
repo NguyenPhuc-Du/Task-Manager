@@ -21,7 +21,7 @@ export const prisma = new PrismaClient();
 
 // Initialize Express app
 const app = express();
-const httpServer = createServer(app);
+export const httpServer = createServer(app);
 
 // Initialize Socket.IO server
 export const io = new Server(httpServer, {
@@ -32,8 +32,6 @@ export const io = new Server(httpServer, {
 });
 
 initGateway(io);
-
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(helmet()); // Set security-related HTTP headers
@@ -54,10 +52,5 @@ app.use('/categories', categoryRoutes);
 app.use('/analytics', analyticsRoutes);
 // Error handling 
 app.use(errorHandler);
-
-// Start server
-httpServer.listen(PORT, () => {
-  console.log(`Server is running on PORT ${PORT}`)
-});
 
 export default app;

@@ -5,11 +5,12 @@ interface RateLimitOptions {
     windowSec: number;
     max: number;
     message?: string;
+    keyPrefix?: string;
 }
 
 export const rateLimit = (options: RateLimitOptions) => {
     return async (req: Request, res: Response, next: NextFunction) => {
-        const key = `rate-limit:${req.ip}`;
+        const key = `${options.keyPrefix || 'rate-limit'}:${req.ip}`;
         const count = await redis.incr(key);
 
         if (count === 1) {
@@ -31,10 +32,12 @@ export const rateLimit = (options: RateLimitOptions) => {
 export const authRateLimit = rateLimit({
     windowSec: 60,
     max: 5,
-    message: 'Quá nhiều lần đăng nhập, thử lại sau 1 phút'
+    message: 'Quá nhiều lần đăng nhập, thử lại sau 1 phút',
+    keyPrefix: 'rate-limit:auth'
 });
 
 export const apiRateLimit = rateLimit({
     windowSec: 60,
-    max: 100
+    max: 100,
+    keyPrefix: 'rate-limit:api'
 });
