@@ -1,0 +1,128 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">TaskIntelligence</string>
+    <string name="cancel">Hủy</string>
+    <string name="save">Lưu</string>
+    <string name="delete">Xóa</string>
+    <string name="edit">Sửa</string>
+    <string name="ok">Đồng ý</string>
+    <string name="back">Quay lại</string>
+    <string name="search">Tìm kiếm</string>
+
+    <!-- Home Screen -->
+    <string name="greeting_morning">Chào buổi sáng, %1$s</string>
+    <string name="greeting_afternoon">Chào buổi chiều, %1$s️</string>
+    <string name="greeting_evening">Chào buổi tối, %1$s</string>
+    <string name="default_user">Người dùng</string>
+    <string name="stat_today">Hôm nay</string>
+    <string name="stat_done">Đã xong</string>
+    <string name="stat_pending">Đang chờ</string>
+    <string name="ai_insights_title">Gợi ý AI</string>
+    <string name="ai_insights_home_desc">Bạn có %1$d công việc đang chờ. Hãy ưu tiên xử lý nhiệm vụ quan trọng trước để đạt hiệu suất cao nhất.</string>
+    <string name="sync_now">Đồng bộ ngay</string>
+    <string name="todays_tasks">Nhiệm vụ hôm nay</string>
+    <string name="view_all">Xem tất cả</string>
+    <string name="pomodoro_timer">Đồng hồ Pomodoro</string>
+    <string name="start_focus_session">Bắt đầu phiên tập trung</string>
+
+    <!-- Task List Screen -->
+    <string name="tasks_title">Danh sách công việc</string>
+    <string name="search_tasks_hint">Tìm kiếm công việc hoặc hỏi AI...</string>
+    <string name="filter_all">Tất cả</string>
+    <string name="filter_today">Hôm nay</string>
+    <string name="filter_this_week">Tuần này</string>
+    <string name="filter_ai_sorted">AI Sắp xếp</string>
+    <string name="active_tasks">Công việc đang làm</string>
+    <string name="remaining">CÒN %1$d VIỆC</string>
+    <string name="no_tasks">Chưa có công việc nào\nNhấn + để tạo mới</string>
+    <string name="priority_low">THẤP</string>
+    <string name="priority_med">VỪA</string>
+    <string name="priority_high">CAO</string>
+    <string name="priority_urgent">KHẨN CẤP</string>
+
+    <!-- Create Task Screen -->
+    <string name="new_task">Tạo công việc mới</string>
+    <string name="task_title_label">TÊN CÔNG VIỆC</string>
+    <string name="task_title_hint">Cần phải làm gì?</string>
+    <string name="description_label">Mô tả</string>
+    <string name="description_hint">Thêm chi tiết về công việc này...</string>
+    <string name="priority_label">Mức độ ưu tiên</string>
+    <string name="priority_option_low">Thấp</string>
+    <string name="priority_option_med">Vừa</string>
+    <string name="priority_option_high">Cao</string>
+    <string name="priority_option_urgent">Khẩn cấp</string>
+    <string name="save_task">Lưu công việc</string>
+
+    <!-- Task Detail Screen -->
+    <string name="task_detail">Chi tiết công việc</string>
+    <string name="status_completed">Đã hoàn thành</string>
+    <string name="status_in_progress">Đang thực hiện</string>
+    <string name="priority_badge">Ưu tiên %1$s</string>
+    <string name="due_date">Hạn chót: %1$s</string>
+    <string name="mark_as_complete">Đánh dấu hoàn thành</string>
+    <string name="task_completed_msg">Đã hoàn thành công việc ✓</string>
+    <string name="tap_to_mark_done">Nhấn để đánh dấu đã xong</string>
+    <string name="ai_insights_detail">Dựa trên hiệu suất trước đó, bạn nên bắt đầu công việc này bằng 1 phiên Pomodoro để duy trì đà làm việc.</string>
+    <string name="created_at">Tạo lúc: %1$s</string>
+    <string name="start_pomodoro">Bắt đầu Pomodoro</string>
+    <string name="delete_task">Xóa công việc</string>
+    <string name="delete_dialog_title">Xóa công việc</string>
+    <string name="delete_dialog_msg">Bạn có chắc chắn muốn xóa công việc này không?</string>
+
+    <!-- Pomodoro Screen -->
+    <string name="focus">Tập trung</string>
+    <string name="phase_focus">Thời gian tập trung</string>
+    <string name="phase_short_break">Nghỉ ngắn</string>
+    <string name="phase_long_break">Nghỉ dài</string>
+    <string name="timer_focusing">Đang tập trung...</string>
+    <string name="timer_ready">Sẵn sàng</string>
+    <string name="session_progress">Phiên %1$d / 4</string>
+    <string name="ai_insights_pomodoro">Bạn đạt hiệu suất cao nhất khi tập trung trong 25 phút. Hãy duy trì tiến độ!</string>
+    <string name="total_sessions_completed">Tổng số phiên hoàn thành: %1$d</string>
+
+    <!-- Settings Screen -->
+    <string name="settings">Cài đặt</string>
+    <string name="pro_plan">GÓI PRO</string>
+    <string name="section_account">TÀI KHOẢN</string>
+    <string name="personal_info">Thông tin cá nhân</string>
+    <string name="password_security">Mật khẩu &amp; Bảo mật</string>
+    <string name="section_preferences">TÙY CHỌN</string>
+    <string name="theme">Giao diện</string>
+    <string name="theme_system">Hệ thống</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="language_current">Tiếng Việt</string>
+    <string name="section_productivity">HIỆU SUẤT</string>
+    <string name="notifications">Thông báo</string>
+    <string name="pomodoro_setting_sub">25 phút / 5 phút</string>
+    <string name="ai_config">Cấu hình AI</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="app_version">TaskIntelligence v1.0.0</string>
+    <string name="app_tagline">Thiết kế cho năng suất tối ưu</string>
+    <string name="select_language">Chọn ngôn ngữ</string>
+    <string name="lang_english">English</string>
+    <string name="lang_vietnamese">Tiếng Việt</string>
+    <string name="lang_system">Mặc định hệ thống</string>
+
+    <!-- Auth Screens -->
+    <string name="welcome_back">Chào mừng trở lại</string>
+    <string name="login_subtitle">Đăng nhập để đồng bộ quy trình thông minh\ntrên tất cả thiết bị của bạn.</string>
+    <string name="email_address">Địa chỉ Email</string>
+    <string name="email_hint">ten@congty.com</string>
+    <string name="password">Mật khẩu</string>
+    <string name="login_button">Đăng nhập →</string>
+    <string name="dont_have_account">Chưa có tài khoản? </string>
+    <string name="register_link">Đăng ký</string>
+    <string name="create_account">Tạo tài khoản</string>
+    <string name="register_subtitle">Tham gia TaskIntelligence và tối ưu hóa\nquy trình làm việc với AI.</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="full_name_hint">Nguyễn Văn A</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="passwords_dont_match">Mật khẩu không khớp</string>
+    <string name="agree_terms_prefix">Tôi đồng ý với </string>
+    <string name="terms_of_service">Điều khoản dịch vụ</string>
+    <string name="agree_terms_and"> và </string>
+    <string name="privacy_policy">Chính sách bảo mật</string>
+    <string name="register_button">Đăng ký →</string>
+    <string name="already_have_account">Đã có tài khoản? </string>
+    <string name="login_link">Đăng nhập</string>
+</resources>

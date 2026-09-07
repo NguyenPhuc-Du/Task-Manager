@@ -11,7 +11,7 @@ import com.example.task_manager.data.local.entity.TaskEntity
 
 @Database(
     entities = [TaskEntity::class, CategoryEntity::class, PomodoroEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 
