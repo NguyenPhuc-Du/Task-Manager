@@ -1,6 +1,7 @@
 package com.example.task_manager.presentation.navigation
 
 import androidx.compose.animation.*
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -33,27 +34,27 @@ fun NavGraph(
         startDestination = startDestination,
         enterTransition = {
             slideInHorizontally(
-                initialOffsetX = { 300 },
-                animationSpec = tween(300)
-            ) + fadeIn(animationSpec = tween(300))
+                initialOffsetX = { fullWidth -> (fullWidth * 0.25).toInt() },
+                animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing)
+            ) + fadeIn(animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing))
         },
         exitTransition = {
             slideOutHorizontally(
-                targetOffsetX = { -300 },
-                animationSpec = tween(300)
-            ) + fadeOut(animationSpec = tween(300))
+                targetOffsetX = { fullWidth -> (-fullWidth * 0.25).toInt() },
+                animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing)
+            ) + fadeOut(animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing))
         },
         popEnterTransition = {
             slideInHorizontally(
-                initialOffsetX = { -300 },
-                animationSpec = tween(300)
-            ) + fadeIn(animationSpec = tween(300))
+                initialOffsetX = { fullWidth -> (-fullWidth * 0.25).toInt() },
+                animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing)
+            ) + fadeIn(animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing))
         },
         popExitTransition = {
             slideOutHorizontally(
-                targetOffsetX = { 300 },
-                animationSpec = tween(300)
-            ) + fadeOut(animationSpec = tween(300))
+                targetOffsetX = { fullWidth -> (fullWidth * 0.25).toInt() },
+                animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing)
+            ) + fadeOut(animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing))
         }
     ) {
         composable(Screen.Login.route) {

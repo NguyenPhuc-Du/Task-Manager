@@ -22,7 +22,8 @@ fun AiConfigScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    var selectedModel by remember { mutableStateOf("gemini") }
+    var selectedModel by remember { mutableStateOf("qwen") }
+
     var autoPriority by remember { mutableStateOf(true) }
     var autoSchedule by remember { mutableStateOf(true) }
     var autoSubtasks by remember { mutableStateOf(true) }
@@ -70,9 +71,11 @@ fun AiConfigScreen(
                     }
 
                     listOf(
-                        "gemini" to "Gemini 1.5 Flash (Nhanh & Tối ưu hóa)",
+                        "qwen" to "Qwen 2.5 0.5B (Siêu nhẹ & Tối ưu On-Device/FastAPI)",
+                        "gemini" to "Gemini 1.5 Flash (Cloud Gateway)",
                         "gpt" to "GPT-4o Mini (Phân tích chuyên sâu)"
                     ).forEach { (key, label) ->
+
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier

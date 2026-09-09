@@ -1,7 +1,13 @@
-﻿import { prisma } from '../../app';
+import { prisma } from '../../app';
 
 export const findAllTasks = async (userId: string, filters: any) => {
-    const { completed, priority, categoryId, sortBy = 'createdAt', order = 'desc' } = filters;
+    const { completed, priority, categoryId, sortBy, order = 'desc' } = filters;
+
+    const defaultOrderBy = [
+        { completed: 'asc' },
+        { priority: 'desc' },
+        { createdAt: 'desc' }
+    ];
 
     return prisma.task.findMany({
         where: {
@@ -10,9 +16,7 @@ export const findAllTasks = async (userId: string, filters: any) => {
             ...(priority !== undefined && { priority: Number(priority) }),
             ...(categoryId && { categoryId })
         },
-        orderBy: {
-            [sortBy]: order
-        },
+        orderBy: sortBy ? { [sortBy]: order } : defaultOrderBy,
         include: {
             category: true
         }

@@ -20,8 +20,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.ListAlt
+import androidx.compose.material.icons.filled.Today
 import com.example.task_manager.R
 import com.example.task_manager.domain.model.Task
+import java.text.SimpleDateFormat
+import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,10 +48,49 @@ fun TaskListScreen(
     var selectedFilter by remember { mutableStateOf(filterAll) }
     val filters = listOf(filterAll, filterToday, filterThisWeek, filterAiSorted)
 
-    val filteredTasks = uiState.tasks.filter { task ->
-        if (searchQuery.isBlank()) true
-        else task.title.contains(searchQuery, ignoreCase = true)
-    }
+    val todayDateStr = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) }
+
+    val filteredTasks = uiState.tasks
+        .filter { task ->
+            val matchesSearch = if (searchQuery.isBlank()) true
+            else task.title.contains(searchQuery, ignoreCase = true) || (task.description?.contains(searchQuery, ignoreCase = true) == true)
+
+            val taskDate = task.dueDate ?: task.createdAt
+            val matchesFilter = when (selectedFilter) {
+                filterToday -> taskDate.startsWith(todayDateStr)
+                filterThisWeek -> {
+                    try {
+                        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        val now = Calendar.getInstance().timeInMillis
+                        val parsed = if (taskDate.length >= 10) sdf.parse(taskDate.substring(0, 10)) else null
+                        if (parsed != null) {
+                            val diffDays = Math.abs(now - parsed.time) / (1000 * 60 * 60 * 24)
+                            diffDays <= 7
+                        } else true
+                    } catch (e: Exception) {
+                        true
+                    }
+                }
+                else -> true
+            }
+
+            matchesSearch && matchesFilter
+        }
+        .let { list ->
+            if (selectedFilter == filterAiSorted) {
+                list.sortedWith(
+                    compareBy<Task> { it.completed }
+                        .thenByDescending { it.priority }
+                        .thenByDescending { it.createdAt }
+                )
+            } else {
+                list.sortedWith(
+                    compareBy<Task> { it.completed }
+                        .thenByDescending { it.priority }
+                        .thenByDescending { it.createdAt }
+                )
+            }
+        }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -114,10 +159,24 @@ fun TaskListScreen(
                 // Filter chips
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     items(filters) { filter ->
+                        val chipIcon = when (filter) {
+                            filterToday -> Icons.Default.Today
+                            filterThisWeek -> Icons.Default.DateRange
+                            filterAiSorted -> Icons.Default.AutoAwesome
+                            else -> Icons.Default.ListAlt
+                        }
+
                         FilterChip(
                             selected = selectedFilter == filter,
                             onClick = { selectedFilter = filter },
                             label = { Text(filter) },
+                            leadingIcon = {
+                                Icon(
+                                    chipIcon,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = MaterialTheme.colorScheme.primary,
                                 selectedLabelColor = MaterialTheme.colorScheme.onPrimary

@@ -8,13 +8,21 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.PendingActions
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.TaskAlt
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -103,16 +111,19 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     StatCard(
+                        icon = Icons.Default.TaskAlt,
                         label = stringResource(R.string.stat_today),
                         value = uiState.tasks.size.toString(),
                         modifier = Modifier.weight(1f)
                     )
                     StatCard(
+                        icon = Icons.Default.CheckCircle,
                         label = stringResource(R.string.stat_done),
                         value = uiState.tasks.count { it.completed }.toString(),
                         modifier = Modifier.weight(1f)
                     )
                     StatCard(
+                        icon = Icons.Default.PendingActions,
                         label = stringResource(R.string.stat_pending),
                         value = uiState.tasks.count { !it.completed }.toString(),
                         modifier = Modifier.weight(1f)
@@ -124,12 +135,18 @@ fun HomeScreen(
                 // AI Insights card
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(20.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Column(modifier = Modifier.padding(20.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("✦ ", color = MaterialTheme.colorScheme.onPrimary)
+                            Icon(
+                                Icons.Default.AutoAwesome,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 stringResource(R.string.ai_insights_title),
                                 style = MaterialTheme.typography.titleMedium,
@@ -162,6 +179,8 @@ fun HomeScreen(
                             ),
                             shape = RoundedCornerShape(20.dp)
                         ) {
+                            Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
                             Text(stringResource(R.string.sync_now))
                         }
                     }
@@ -231,19 +250,28 @@ fun HomeScreen(
 }
 
 @Composable
-fun StatCard(label: String, value: String, modifier: Modifier = Modifier) {
+fun StatCard(label: String, value: String, modifier: Modifier = Modifier, icon: ImageVector? = null) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Column(
-            modifier = Modifier.padding(12.dp),
+            modifier = Modifier.padding(14.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            if (icon != null) {
+                Icon(
+                    icon,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(22.dp)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+            }
             Text(
                 text = value,
                 style = MaterialTheme.typography.headlineSmall,

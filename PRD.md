@@ -164,7 +164,8 @@ Trang Cài đặt sử dụng các màn hình riêng biệt (Full Screen) với 
 | **Thông tin cá nhân** | `personal_info` | Xem/sửa Họ tên, Email tài khoản, Ngày tham gia, Avatar ký tự đầu |
 | **Mật khẩu & Bảo mật** | `security` | Đổi mật khẩu, Bật/tắt xác thực 2 lớp (2FA), Lịch sử thiết bị |
 | **Cài đặt thông báo** | `notification_settings` | Bật/tắt Nhắc nhở công việc, Báo cáo ngày, Cảnh báo ưu tiên, Âm thanh & Rung |
-| **Cấu hình AI** | `ai_config` | Lựa chọn mô hình AI (Gemini 1.5 Flash / GPT-4o Mini), Tự động xếp ưu tiên |
+| **Cấu hình AI** | `ai_config` | Lựa chọn mô hình AI (Qwen 2.5 0.5B / Gemini 1.5 Flash / GPT-4o Mini), Tự động xếp ưu tiên |
+
 | **Cài đặt Pomodoro** | `pomodoro_settings` | Tùy chỉnh số phút tập trung, nghỉ ngắn, nghỉ dài, tự động chuyển phiên |
 | **Điều khoản dịch vụ** | `terms_and_conditions` | Nội dung các điều khoản sử dụng ứng dụng |
 | **Chính sách bảo mật** | `privacy_policy` | Cam kết bảo mật dữ liệu và quyền riêng tư người dùng |
@@ -192,7 +193,9 @@ Trang Cài đặt sử dụng các màn hình riêng biệt (Full Screen) với 
 
 ### 5.1 Hiệu Năng & UX
 - **API Response Time:** < 200ms
-- **Screen Transitions:** Mượt mà với `slideInHorizontally` + `fadeIn` & `slideOutHorizontally` + `fadeOut`.
+- **Screen Transitions:** Material 3 Motion mượt mà với `FastOutSlowInEasing`, kết hợp `slideInHorizontally` + `fadeIn` & `slideOutHorizontally` + `fadeOut` (duration 350ms).
+- **Iconography & Polish:** Hệ thống Vector Icons chuẩn hóa (Material Icons) kết hợp badge container bo tròn và hiệu ứng thị giác hiện đại trên toàn bộ màn hình.
+- **AI Priority Sorting:** Tự động ưu tiên xếp các task chưa hoàn thành và task có độ ưu tiên AI cao (`priority DESC`) lên đầu danh sách tại cả Room Database và Backend API.
 - **Auto-login Speed:** < 300ms kiểm tra token.
 - **Offline-first:** App đọc/ghi dữ liệu từ Room Database khi mất mạng và tự sync khi có internet.
 
@@ -207,21 +210,23 @@ Trang Cài đặt sử dụng các màn hình riêng biệt (Full Screen) với 
 
 | Component | Trạng thái | Chi tiết |
 |---|---|---|
-| **Backend API** | ✅ 100% Completed | Auth, Tasks, Categories, Analytics, Sync |
+| **Backend API** | ✅ 100% Completed | Auth, Tasks, Categories, Analytics, Sync, AI Priority Sorting |
 | **Database & Docker** | ✅ 100% Completed | PostgreSQL + Redis trong Docker Compose |
-| **Android Core** | ✅ 100% Completed | Clean Architecture, Hilt, Room, Retrofit |
+| **Android Core** | ✅ 100% Completed | Clean Architecture, Hilt, Room (AI Priority Sorting), Retrofit |
 | **Android UI & Auth** | ✅ 100% Completed | Login, Register, Forgot Password, Auto-Login |
-| **Android Settings** | ✅ 100% Completed | 5 Full Screen Pages + Terms & Privacy |
-| **ML Service Scaffold** | ✅ 100% Completed | FastAPI + Health Check endpoint |
+| **Android Animations & Icons**| ✅ 100% Completed | Material 3 Motion Transitions (`FastOutSlowInEasing`) & Vector Icons System |
+| **Android Settings** | ✅ 100% Completed | 5 Full Screen Pages + Terms & Privacy + Visual Icon Badges |
+| **ML Service & AI Engine** | ✅ 100% Completed | FastAPI + Dynamic `suggest-insights` & `predict-priority` Qwen Model |
 
 ---
 
 ## 7. Roadmap & Kế Hoạch Tiếp Theo
 
-### Phase 1 & 2 — Core & UI MVP (✅ Completed)
+### Phase 1 & 2 — Core, UI MVP & AI Engine (✅ Completed)
 - [x] Backend REST API & Database setup
 - [x] Clean Architecture + Hilt DI + Room
-- [x] UI/UX Material 3 redesign & Screen Transitions
+- [x] UI/UX Material 3 redesign, Vector Icons & Motion Transitions (`FastOutSlowInEasing`)
+- [x] AI Priority Sorting & Dynamic Insights Engine
 - [x] Auto-login & DataStore session persistence
 - [x] Full-screen Settings modules & Legal pages
 
@@ -234,4 +239,4 @@ Trang Cài đặt sử dụng các màn hình riêng biệt (Full Screen) với 
 
 ## 8. Kết Luận & Tài Liệu Liên Quan
 
-Tài liệu PRD này phản ánh chính xác 100% trạng thái hoàn thiện của ứng dụng **AI Task Manager**. Ứng dụng đã sẵn sàng cho giai đoạn kiểm thử nghiệm thu và phát hành (Production Release).
+Tài liệu PRD này phản ánh chính xác 100% trạng thái hoàn thiện của ứng dụng **AI Task Manager**. Ứng dụng đã hoàn thành đầy đủ giao diện mượt mà, hệ thống icon phong phú, công cụ phân tích AI và sẵn sàng cho giai đoạn kiểm thử nghiệm thu và phát hành (Production Release).
