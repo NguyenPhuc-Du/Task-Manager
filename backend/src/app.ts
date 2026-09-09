@@ -7,6 +7,8 @@ import authRoutes from './modules/auth/auth.routes';
 import taskRoutes from './modules/tasks/task.routes';
 import categoryRoutes from './modules/categories/category.routes';
 import analyticsRoutes from './modules/analytics/analytics.routes';
+import aiRoutes from './modules/ai/ai.routes';
+
 
 import { errorHandler } from './shared/middleware/error.middleware';
 import { apiRateLimit } from './shared/middleware/rateLimit.middleware';
@@ -50,6 +52,8 @@ app.use('/auth', authRoutes);
 app.use('/tasks', taskRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/analytics', analyticsRoutes);
+app.use('/ai', aiRoutes);
+
 // Error handling 
 app.use(errorHandler);
 

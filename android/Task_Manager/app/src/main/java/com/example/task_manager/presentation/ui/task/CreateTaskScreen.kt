@@ -14,6 +14,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Flag
+import androidx.compose.material.icons.filled.PriorityHigh
 import com.example.task_manager.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -100,7 +104,13 @@ fun CreateTaskScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("≡ ", color = MaterialTheme.colorScheme.primary)
+                        Icon(
+                            Icons.Default.Description,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             stringResource(R.string.description_label),
                             style = MaterialTheme.typography.titleSmall,
@@ -132,7 +142,13 @@ fun CreateTaskScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("! ", color = MaterialTheme.colorScheme.primary)
+                        Icon(
+                            Icons.Default.Flag,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             stringResource(R.string.priority_label),
                             style = MaterialTheme.typography.titleSmall,
